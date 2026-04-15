@@ -45,19 +45,30 @@ export function OverlayCanvas({
     img.src = referenceImageUrl
   }, [referenceImageUrl])
 
-  // Handle capture trigger
+  // Handle capture trigger — カメラ映像のみを別 canvas に描画して保存
   useEffect(() => {
     if (!triggerCapture) return
-    const canvas = canvasRef.current
-    if (!canvas) return
-    canvas.toBlob(
+    if (!videoEl || videoEl.readyState < 2) return
+
+    const w = videoEl.clientWidth
+    const h = videoEl.clientHeight
+
+    const offscreen = document.createElement('canvas')
+    offscreen.width = w
+    offscreen.height = h
+    const ctx = offscreen.getContext('2d')
+    if (!ctx) return
+
+    ctx.drawImage(videoEl, 0, 0, w, h)
+
+    offscreen.toBlob(
       (blob) => {
         if (blob) onCapture(blob)
       },
       'image/jpeg',
       0.95,
     )
-  }, [triggerCapture, onCapture])
+  }, [triggerCapture, onCapture, videoEl])
 
   // rAF draw loop + ResizeObserver
   useEffect(() => {
