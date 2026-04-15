@@ -13,15 +13,15 @@ describe('downloadBlob', () => {
     capturedAnchor = null
     createObjectURLMock = vi.fn().mockReturnValue('blob:http://localhost/test-url')
     revokeObjectURLMock = vi.fn()
-    URL.createObjectURL = createObjectURLMock
-    URL.revokeObjectURL = revokeObjectURLMock
+    URL.createObjectURL = createObjectURLMock as unknown as typeof URL.createObjectURL
+    URL.revokeObjectURL = revokeObjectURLMock as unknown as typeof URL.revokeObjectURL
 
     clickSpy = vi.fn()
     const originalCreateElement = document.createElement.bind(document)
     vi.spyOn(document, 'createElement').mockImplementation((tag: string) => {
       const el = originalCreateElement(tag)
       if (tag === 'a') {
-        el.click = clickSpy
+        el.click = clickSpy as unknown as () => void
         capturedAnchor = el as HTMLAnchorElement
       }
       return el

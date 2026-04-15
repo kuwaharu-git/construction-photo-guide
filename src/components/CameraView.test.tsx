@@ -55,11 +55,6 @@ describe('CameraView', () => {
       getTracks: vi.fn().mockReturnValue([mockTrack]),
     } as unknown as MediaStream
 
-    const mockVideoEl = {
-      srcObject: null as MediaStream | null,
-      play: vi.fn().mockResolvedValue(undefined),
-    }
-
     Object.defineProperty(navigator, 'mediaDevices', {
       value: {
         getUserMedia: vi.fn().mockResolvedValue(mockStream),

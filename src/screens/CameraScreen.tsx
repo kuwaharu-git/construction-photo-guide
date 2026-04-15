@@ -19,7 +19,6 @@ export function CameraScreen({ onBack }: CameraScreenProps) {
   const [overlayOpacity, setOverlayOpacity] = useState(0.5)
   const [showGrid, setShowGrid] = useState(false)
   const [capturedBlob, setCapturedBlob] = useState<Blob | null>(null)
-  const [showModal, setShowModal] = useState(false)
   const [cameraError, setCameraError] = useState<string | null>(null)
   const [triggerCapture, setTriggerCapture] = useState(false)
 
@@ -153,7 +152,7 @@ export function CameraScreen({ onBack }: CameraScreenProps) {
       </div>
 
       {/* Captured indicator (optional feedback) */}
-      {capturedBlob && showModal && (
+      {capturedBlob && (
         <div style={{ display: 'none' }} />
       )}
     </div>
