@@ -11,7 +11,7 @@ interface CameraScreenProps {
 }
 
 export function CameraScreen({ onBack }: CameraScreenProps) {
-  const { referenceImageUrl, markers, showMarkers } = useAppContext()
+  const { referenceImageUrl, markers, showMarkers, referenceImageAspectRatio } = useAppContext()
 
   const streamRef = useRef<MediaStream | null>(null)
   const videoRef = useRef<HTMLVideoElement | null>(null)
@@ -80,8 +80,11 @@ export function CameraScreen({ onBack }: CameraScreenProps) {
           style={{
             position: 'relative',
             width: '100%',
-            aspectRatio: '4/3',
+            aspectRatio: referenceImageAspectRatio ? `${referenceImageAspectRatio}` : '4/3',
             maxHeight: '100%',
+            maxWidth: referenceImageAspectRatio
+              ? `calc(100dvh * ${referenceImageAspectRatio})`
+              : undefined,
             overflow: 'hidden',
           }}
         >

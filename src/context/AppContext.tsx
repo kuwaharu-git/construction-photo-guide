@@ -6,12 +6,19 @@ const AppContext = createContext<AppContextValue | null>(null)
 export function AppProvider({ children }: { children: ReactNode }) {
   const [referenceImage, setReferenceImageState] = useState<File | null>(null)
   const [referenceImageUrl, setReferenceImageUrl] = useState<string | null>(null)
+  const [referenceImageAspectRatio, setReferenceImageAspectRatio] = useState<number | null>(null)
   const [markers, setMarkers] = useState<Marker[]>([])
   const [showMarkers, setShowMarkers] = useState(true)
 
   const setReferenceImage = (file: File, url: string) => {
     setReferenceImageState(file)
     setReferenceImageUrl(url)
+    // 画像の自然サイズからアスペクト比を取得
+    const img = new Image()
+    img.onload = () => {
+      setReferenceImageAspectRatio(img.naturalWidth / img.naturalHeight)
+    }
+    img.src = url
   }
 
   const addMarker = (x: number, y: number) => {
@@ -32,6 +39,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       value={{
         referenceImage,
         referenceImageUrl,
+        referenceImageAspectRatio,
         setReferenceImage,
         markers,
         addMarker,

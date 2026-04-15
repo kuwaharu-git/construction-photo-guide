@@ -8,6 +8,7 @@ export type AppContextValue = {
   // 参照画像
   referenceImage: File | null
   referenceImageUrl: string | null
+  referenceImageAspectRatio: number | null  // width / height
   setReferenceImage: (file: File, url: string) => void
 
   // 目印
