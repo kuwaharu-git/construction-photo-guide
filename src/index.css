@@ -1,0 +1,98 @@
+/* CSS Reset & Mobile-first base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-danger: #dc2626;
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --min-tap-size: 44px;
+
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  min-width: var(--min-tap-size);
+  min-height: var(--min-tap-size);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+/* Tablet / PC breakpoint */
+@media (min-width: 768px) {
+  #root {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+/* Landscape orientation: allow camera area to use full viewport height */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* On small-height landscape (phones), let the camera screen fill the screen */
+  .camera-screen {
+    height: 100dvh;
+  }
+
+  /* Reduce header/footer padding to maximize camera area */
+  .camera-header {
+    padding: 4px 12px;
+  }
+
+  .camera-controls {
+    padding: 4px 16px;
+  }
+
+  .camera-shutter {
+    padding: 8px 16px;
+  }
+}
